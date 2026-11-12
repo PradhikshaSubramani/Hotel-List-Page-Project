@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { pool } = require('../config/db');
 
 const authController = {
-  // 1. Register User or Admin
+
   async register(req, res) {
     try {
       const { name, email, password, role } = req.body;
@@ -23,7 +23,7 @@ const authController = {
 
       const normalizedEmail = email.toLowerCase().trim();
 
-      // Check if user already exists
+
       const existingUser = await pool.query(
         'SELECT id FROM users WHERE LOWER(email) = $1',
         [normalizedEmail]
@@ -33,11 +33,9 @@ const authController = {
         return res.status(409).json({ error: 'An account with this email already exists.' });
       }
 
-      // Hash password
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
-      // Insert new user
       const insertQuery = `
         INSERT INTO users (name, email, password, role)
         VALUES ($1, $2, $3, $4)
@@ -52,7 +50,6 @@ const authController = {
 
       const newUser = result.rows[0];
 
-      // Sign JWT token
       const token = jwt.sign(
         {
           id: newUser.id,
@@ -80,7 +77,6 @@ const authController = {
     }
   },
 
-  // 2. Login with role verification
   async login(req, res) {
     try {
       const { email, password, role } = req.body;
@@ -92,7 +88,6 @@ const authController = {
       const normalizedEmail = email.toLowerCase().trim();
       const selectedRole = role.toLowerCase().trim();
 
-      // Fetch user by email
       const result = await pool.query(
         'SELECT id, name, email, password, role FROM users WHERE LOWER(email) = $1',
         [normalizedEmail]
@@ -104,20 +99,17 @@ const authController = {
 
       const user = result.rows[0];
 
-      // Verify password
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(401).json({ error: 'Invalid email or password.' });
       }
 
-      // Strictly verify that selected role matches user.role
       if (user.role.toLowerCase() !== selectedRole) {
         return res.status(403).json({
           error: `Selected role '${selectedRole}' does not match registered account role '${user.role}'. Please select '${user.role}' to proceed.`,
         });
       }
 
-      // Generate JWT
       const token = jwt.sign(
         {
           id: user.id,
@@ -145,7 +137,6 @@ const authController = {
     }
   },
 
-  // 3. Current user details
   async getMe(req, res) {
     try {
       const result = await pool.query(

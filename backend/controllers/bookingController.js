@@ -1,7 +1,6 @@
 const { pool } = require('../config/db');
 
 const bookingController = {
-  // 1. Create a new booking
   async createBooking(req, res) {
     try {
       const {
@@ -15,7 +14,6 @@ const bookingController = {
         total_price,
       } = req.body;
 
-      // Basic field checks
       if (
         !hotel_id ||
         !guest_name ||
@@ -39,7 +37,6 @@ const bookingController = {
         return res.status(400).json({ error: 'Total price must be a valid positive number.' });
       }
 
-      // Date validation: check_out > check_in
       const inDate = new Date(check_in);
       const outDate = new Date(check_out);
 
@@ -51,7 +48,6 @@ const bookingController = {
         return res.status(400).json({ error: 'Check-out date must be strictly after check-in date.' });
       }
 
-      // Verify hotel exists
       const hotelRes = await pool.query('SELECT id, title, price FROM hotels WHERE id = $1', [hotel_id]);
       if (hotelRes.rows.length === 0) {
         return res.status(404).json({ error: 'Hotel not found.' });
@@ -104,7 +100,6 @@ const bookingController = {
     }
   },
 
-  // 2. Get bookings (all for admin, user's own for regular users)
   async getBookings(req, res) {
     try {
       const userId = req.user.id;

@@ -18,7 +18,6 @@ const HotelDetails = () => {
   const [loading, setLoading] = useState(true);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  // Booking Modal State
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingError, setBookingError] = useState('');
@@ -34,7 +33,6 @@ const HotelDetails = () => {
     guests_count: 1,
   });
 
-  // Redirect unauthenticated guests to login
   useEffect(() => {
     if (!token || !user) {
       dispatch(
@@ -78,7 +76,6 @@ const HotelDetails = () => {
       });
   }, [id]);
 
-  // Calculate nights and total price
   const calculateNights = (inDateStr, outDateStr) => {
     if (!inDateStr || !outDateStr) return 0;
     const d1 = new Date(inDateStr);
@@ -162,7 +159,6 @@ const HotelDetails = () => {
     );
   }
 
-  // Parse images (handles array, PostgreSQL literal string, or single image fallback)
   let imagesList = [];
   if (Array.isArray(hotel.images) && hotel.images.length > 0) {
     imagesList = hotel.images;

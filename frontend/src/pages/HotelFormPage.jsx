@@ -43,7 +43,6 @@ const HotelFormPage = () => {
       hotelService
         .getHotelById(id)
         .then((res) => {
-          // Axios response wrap aagi irundha res.data edukkum
           const data = res?.data || res;
           setInitialData(data);
           setLoading(false);

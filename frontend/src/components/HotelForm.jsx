@@ -26,7 +26,6 @@ const HotelForm = ({ initialData, onSubmit, isEdit = false }) => {
         longitude: initialData.longitude || '',
       });
 
-      // Parse images safely from database array or string
       let existingImages = [];
       if (Array.isArray(initialData.images)) {
         existingImages = initialData.images;
@@ -97,7 +96,6 @@ const HotelForm = ({ initialData, onSubmit, isEdit = false }) => {
       return;
     }
 
-    // Revoke previous blob URLs to prevent memory leakage
     imagePreviews.forEach((url) => {
       if (url.startsWith('blob:')) URL.revokeObjectURL(url);
     });

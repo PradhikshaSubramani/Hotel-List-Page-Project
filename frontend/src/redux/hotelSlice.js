@@ -1,13 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import hotelService from '../services/hotelService';
 
-// 1. Async Thunk: Fetch Hotels with Filters & Pagination
 export const fetchHotels = createAsyncThunk(
   'hotels/fetchHotels',
   async (filterParams, { rejectWithValue }) => {
     try {
       const response = await hotelService.getHotels(filterParams);
-      // response.data irundha edukkum, illana direct response
       return response.data || response;
     } catch (err) {
       return rejectWithValue(err.response?.data?.error || err.response?.data?.message || 'Failed to fetch hotels.');
@@ -15,7 +13,6 @@ export const fetchHotels = createAsyncThunk(
   }
 );
 
-// 2. Async Thunk: Fetch Single Hotel Details
 export const fetchHotelById = createAsyncThunk(
   'hotels/fetchHotelById',
   async (id, { rejectWithValue }) => {
@@ -28,7 +25,6 @@ export const fetchHotelById = createAsyncThunk(
   }
 );
 
-// 3. Async Thunk: Create Hotel
 export const createHotel = createAsyncThunk(
   'hotels/createHotel',
   async (formData, { rejectWithValue }) => {
@@ -41,7 +37,6 @@ export const createHotel = createAsyncThunk(
   }
 );
 
-// 4. Async Thunk: Update Hotel
 export const updateHotel = createAsyncThunk(
   'hotels/updateHotel',
   async ({ id, formData }, { rejectWithValue }) => {
@@ -54,7 +49,6 @@ export const updateHotel = createAsyncThunk(
   }
 );
 
-// 5. Async Thunk: Delete Hotel
 export const deleteHotel = createAsyncThunk(
   'hotels/deleteHotel',
   async (id, { rejectWithValue }) => {
@@ -111,14 +105,12 @@ const hotelSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch Hotels
       .addCase(fetchHotels.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchHotels.fulfilled, (state, action) => {
         state.loading = false;
-        // Backend returns: { hotels: [...], totalCount: 8 }
         if (action.payload && action.payload.hotels) {
           state.hotels = action.payload.hotels;
           state.totalCount = action.payload.totalCount;
@@ -136,7 +128,7 @@ const hotelSlice = createSlice({
         state.hotels = [];
       })
 
-      // Fetch Hotel By Id
+
       .addCase(fetchHotelById.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -150,7 +142,6 @@ const hotelSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Create Hotel
       .addCase(createHotel.fulfilled, (state, action) => {
         state.notification = {
           type: 'success',
@@ -164,7 +155,6 @@ const hotelSlice = createSlice({
         };
       })
 
-      // Update Hotel
       .addCase(updateHotel.fulfilled, (state, action) => {
         state.notification = {
           type: 'success',
@@ -178,7 +168,6 @@ const hotelSlice = createSlice({
         };
       })
 
-      // Delete Hotel
       .addCase(deleteHotel.fulfilled, (state, action) => {
         state.notification = {
           type: 'success',

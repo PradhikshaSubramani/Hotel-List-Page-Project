@@ -70,7 +70,6 @@ const Login = () => {
       );
       navigate(redirectPath, { replace: true });
     } catch (err) {
-      // Redux sets authError
     }
   };
 

@@ -73,7 +73,6 @@ VALUES
     '/uploads/seed-hotel-7.jpg'
 );
 
--- Users Table
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -83,7 +82,6 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Bookings Table
 CREATE TABLE IF NOT EXISTS bookings (
     id SERIAL PRIMARY KEY,
     hotel_id INTEGER REFERENCES hotels(id) ON DELETE CASCADE,

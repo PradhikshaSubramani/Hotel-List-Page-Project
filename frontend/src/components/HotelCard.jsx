@@ -40,7 +40,6 @@ const HotelCard = ({ hotel, onEdit, onDelete }) => {
     onDelete(hotel);
   };
 
-  // Safe image path parser (handles array, postgres string literal, or single string)
   let rawPath = '';
   if (Array.isArray(hotel.images) && hotel.images.length > 0) {
     rawPath = hotel.images[0];

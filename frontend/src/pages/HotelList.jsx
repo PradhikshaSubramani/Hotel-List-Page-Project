@@ -31,7 +31,6 @@ const HotelList = () => {
 
   const [hotelToDelete, setHotelToDelete] = useState(null);
 
-  // Fetch when filters or page changes
   useEffect(() => {
     const offset = ((safeFilters.currentPage || 1) - 1) * (safeFilters.limit || 6);
     dispatch(
@@ -45,13 +44,11 @@ const HotelList = () => {
     );
   }, [dispatch, safeFilters.currentPage, safeFilters.search, safeFilters.minPrice, safeFilters.maxPrice, safeFilters.limit]);
 
-  // Live Search
   const handleSearchChange = (value) => {
     setLocalSearch(value);
     dispatch(setSearchQuery(value));
   };
 
-  // Price Filter Handlers
   const handlePriceChange = (field, value) => {
     if (field === 'minPrice') setLocalMinPrice(value);
     if (field === 'maxPrice') setLocalMaxPrice(value);

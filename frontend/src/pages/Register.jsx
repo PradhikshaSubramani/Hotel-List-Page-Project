@@ -71,7 +71,6 @@ const Register = () => {
       );
       navigate('/');
     } catch (err) {
-      // Redux sets authError
     }
   };
 

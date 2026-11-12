@@ -4,7 +4,6 @@ const api = axios.create({
   baseURL: 'http://localhost:5000/api',
 });
 
-// Request interceptor to attach Bearer token to all outgoing requests
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
