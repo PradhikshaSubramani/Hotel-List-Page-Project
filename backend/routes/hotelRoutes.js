@@ -3,6 +3,9 @@ const router = express.Router();
 const hotelController = require('../controllers/hotelController');
 const { uploadMultiple } = require('../middleware/upload');
 const { verifyToken, requireAdmin } = require('../middleware/authMiddleware');
+const reviewRoutes = require('./reviewRoutes');
+
+router.use('/:id/reviews', reviewRoutes);
 
 router.get('/', hotelController.getHotels);
 router.get('/:id', hotelController.getHotelById);

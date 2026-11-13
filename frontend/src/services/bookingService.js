@@ -10,6 +10,11 @@ const bookingService = {
     const response = await api.get('/bookings');
     return response.data;
   },
+
+  async getAllBookingsAdmin() {
+    const response = await api.get('/bookings/all');
+    return response.data;
+  },
 };
 
 export default bookingService;

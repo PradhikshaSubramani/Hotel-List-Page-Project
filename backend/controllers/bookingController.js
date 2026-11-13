@@ -110,7 +110,15 @@ const bookingController = {
 
       if (userRole === 'admin') {
         queryText = `
-          SELECT b.*, h.title as hotel_title, u.name as booked_by_user_name, u.email as booked_by_user_email
+          SELECT 
+            b.*, 
+            h.title AS hotel_name, 
+            h.title AS hotel_title, 
+            h.latitude AS hotel_latitude, 
+            h.longitude AS hotel_longitude, 
+            h.price AS hotel_nightly_price,
+            u.name AS booked_by_user_name, 
+            u.email AS booked_by_user_email
           FROM bookings b
           JOIN hotels h ON b.hotel_id = h.id
           LEFT JOIN users u ON b.user_id = u.id
@@ -118,7 +126,13 @@ const bookingController = {
         `;
       } else {
         queryText = `
-          SELECT b.*, h.title as hotel_title
+          SELECT 
+            b.*, 
+            h.title AS hotel_name, 
+            h.title AS hotel_title,
+            h.latitude AS hotel_latitude, 
+            h.longitude AS hotel_longitude, 
+            h.price AS hotel_nightly_price
           FROM bookings b
           JOIN hotels h ON b.hotel_id = h.id
           WHERE b.user_id = $1
@@ -128,10 +142,60 @@ const bookingController = {
       }
 
       const result = await pool.query(queryText, params);
-      return res.status(200).json({ success: true, bookings: result.rows });
+      return res.status(200).json({
+        success: true,
+        count: result.rows.length,
+        totalBookings: result.rows.length,
+        bookings: result.rows,
+      });
     } catch (err) {
       console.error('Fetch bookings error:', err);
       return res.status(500).json({ error: 'Server error while fetching bookings: ' + err.message });
+    }
+  },
+
+  async getAllBookingsAdmin(req, res) {
+    try {
+      if (!req.user || req.user.role !== 'admin') {
+        return res.status(403).json({ error: 'Access denied: Admin privileges required.' });
+      }
+
+      const queryText = `
+        SELECT 
+          b.id,
+          b.hotel_id,
+          b.user_id,
+          b.guest_name,
+          b.guest_email,
+          b.guest_phone,
+          b.check_in,
+          b.check_out,
+          b.guests_count,
+          b.total_price,
+          b.created_at,
+          h.title AS hotel_name,
+          h.title AS hotel_title,
+          h.latitude AS hotel_latitude,
+          h.longitude AS hotel_longitude,
+          h.price AS hotel_nightly_price,
+          u.name AS booked_by_user_name,
+          u.email AS booked_by_user_email
+        FROM bookings b
+        JOIN hotels h ON b.hotel_id = h.id
+        LEFT JOIN users u ON b.user_id = u.id
+        ORDER BY b.created_at DESC;
+      `;
+
+      const result = await pool.query(queryText);
+      return res.status(200).json({
+        success: true,
+        count: result.rows.length,
+        totalBookings: result.rows.length,
+        bookings: result.rows,
+      });
+    } catch (err) {
+      console.error('Fetch all bookings error:', err);
+      return res.status(500).json({ error: 'Server error while fetching all bookings: ' + err.message });
     }
   },
 };

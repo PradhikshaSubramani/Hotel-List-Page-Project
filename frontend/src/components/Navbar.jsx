@@ -33,9 +33,14 @@ const Navbar = () => {
         {isLoggedIn ? (
           <>
             {isAdmin && (
-              <Link to="/add" className="btn-add">
-                Add New Hotel
-              </Link>
+              <>
+                <Link to="/bookings" className="btn-add">
+                  Bookings
+                </Link>
+                <Link to="/add" className="btn-add">
+                  Add New Hotel
+                </Link>
+              </>
             )}
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'white' }}>

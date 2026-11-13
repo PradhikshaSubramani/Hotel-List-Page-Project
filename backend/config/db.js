@@ -51,10 +51,24 @@ const initDB = async () => {
     );
   `;
 
+  const createReviewsTable = `
+    CREATE TABLE IF NOT EXISTS reviews (
+      id SERIAL PRIMARY KEY,
+      hotel_id INTEGER NOT NULL REFERENCES hotels(id) ON DELETE CASCADE,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+      comment TEXT NOT NULL,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+    CREATE INDEX IF NOT EXISTS idx_reviews_hotel_id ON reviews(hotel_id);
+    CREATE INDEX IF NOT EXISTS idx_reviews_user_id ON reviews(user_id);
+  `;
+
   try {
     await pool.query(createUsersTable);
     await pool.query(createBookingsTable);
-    console.log('Database tables (users, bookings) initialized successfully.');
+    await pool.query(createReviewsTable);
+    console.log('Database tables (users, bookings, reviews) initialized successfully.');
   } catch (err) {
     console.error('Error initializing database tables:', err.message);
   }

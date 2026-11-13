@@ -8,6 +8,7 @@ import HotelFormPage from './pages/HotelFormPage';
 import HotelDetails from './pages/HotelDetails';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AdminBookings from './pages/AdminBookings';
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
             <Route path="/add" element={<HotelFormPage />} />
             <Route path="/edit/:id" element={<HotelFormPage />} />
             <Route path="/hotels/:id" element={<HotelDetails />} />
+            <Route path="/bookings" element={<AdminBookings />} />
+            <Route path="/admin/bookings" element={<AdminBookings />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
