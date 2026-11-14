@@ -27,3 +27,7 @@ psql -U postgres
 CREATE DATABASE hotel_management;
 \c hotel_management
 \i 'path/to/database/schema.sql'
+
+
+demo video drive link:
+https://drive.google.com/drive/folders/1tXRuxOcsNaFc6iuMSKh9UuJH5xgPEa7t
