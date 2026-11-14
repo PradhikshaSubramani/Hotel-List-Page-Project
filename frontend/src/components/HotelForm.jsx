@@ -246,7 +246,7 @@ const HotelForm = ({ initialData, onSubmit, isEdit = false }) => {
           type="button"
           className="btn"
           style={{ background: '#e2e6ea', color: '#333' }}
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/hotels')}
         >
           Cancel
         </button>

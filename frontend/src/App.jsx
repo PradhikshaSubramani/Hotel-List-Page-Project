@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Notification from './components/Notification';
+import Home from './pages/Home';
+import About from './pages/About';
 import HotelList from './pages/HotelList';
 import HotelFormPage from './pages/HotelFormPage';
 import HotelDetails from './pages/HotelDetails';
@@ -17,7 +19,9 @@ function App() {
         <Navbar />
         <div style={{ flex: 1 }}>
           <Routes>
-            <Route path="/" element={<HotelList />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/hotels" element={<HotelList />} />
+            <Route path="/about" element={<About />} />
             <Route path="/add" element={<HotelFormPage />} />
             <Route path="/edit/:id" element={<HotelFormPage />} />
             <Route path="/hotels/:id" element={<HotelDetails />} />

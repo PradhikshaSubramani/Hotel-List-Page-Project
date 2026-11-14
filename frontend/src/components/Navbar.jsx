@@ -25,9 +25,52 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">
-        Hotel Explorer
-      </Link>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.75rem', flexWrap: 'wrap' }}>
+        <Link to="/" className="logo">
+          Hotel Explorer
+        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <Link
+            to="/"
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              fontWeight: 600,
+              fontSize: '0.95rem',
+              padding: '0.35rem 0.65rem',
+              borderRadius: '4px',
+            }}
+          >
+            Home
+          </Link>
+          <Link
+            to="/hotels"
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              fontWeight: 600,
+              fontSize: '0.95rem',
+              padding: '0.35rem 0.65rem',
+              borderRadius: '4px',
+            }}
+          >
+            Hotels
+          </Link>
+          <Link
+            to="/about"
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              fontWeight: 600,
+              fontSize: '0.95rem',
+              padding: '0.35rem 0.65rem',
+              borderRadius: '4px',
+            }}
+          >
+            About Us
+          </Link>
+        </div>
+      </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
         {isLoggedIn ? (

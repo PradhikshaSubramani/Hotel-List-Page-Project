@@ -61,7 +61,7 @@ const HotelFormPage = () => {
       } else {
         await dispatch(createHotel(formData)).unwrap();
       }
-      navigate('/');
+      navigate('/hotels');
     } catch (err) {
       console.error('Submission failed:', err);
     }

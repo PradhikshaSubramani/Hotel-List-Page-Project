@@ -307,7 +307,7 @@ const HotelDetails = () => {
     return (
       <div style={{ textAlign: 'center', padding: '4rem' }}>
         <h2>Hotel Not Found</h2>
-        <button className="btn btn-primary" style={{ marginTop: '1rem' }} onClick={() => navigate('/')}>
+        <button className="btn btn-primary" style={{ marginTop: '1rem' }} onClick={() => navigate('/hotels')}>
           Back to Listings
         </button>
       </div>
@@ -356,7 +356,7 @@ const HotelDetails = () => {
         <button
           className="btn"
           style={{ background: '#e9ecef', color: '#333', marginBottom: '1.5rem' }}
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/hotels')}
         >
           ← Back to Listings
         </button>

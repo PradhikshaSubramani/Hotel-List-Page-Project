@@ -100,7 +100,7 @@ const AdminBookings = () => {
         <button
           className="btn"
           style={{ background: '#e9ecef', color: '#333', marginBottom: '1.5rem' }}
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/hotels')}
         >
           ← Back to Listings
         </button>
